@@ -1,0 +1,34 @@
+# Requête MongoDB : Catégorie avec le moins d'articles
+
+Voici la requête à exécuter dans mongosh pour récupérer la catégorie qui possède le moins d'articles :
+
+```
+db.product.aggregate([
+  {
+    $group: {
+      _id: "$category_id",
+      count: { $sum: 1 }
+    }
+  },
+  { $sort: { count: 1 } },
+  { $limit: 1 },
+  {
+    $lookup: {
+      from: "category",
+      localField: "_id",
+      foreignField: "_id",
+      as: "category"
+    }
+  },
+  { $unwind: "$category" }
+])
+```
+
+**Explications :**
+- `$group` : regroupe les produits par catégorie et compte le nombre d'articles.
+- `$sort` : trie par nombre d'articles croissant.
+- `$limit` : ne garde que la catégorie avec le moins d'articles.
+- `$lookup` : joint les informations de la catégorie.
+- `$unwind` : simplifie l'affichage de la catégorie.
+
+Exécute cette requête dans mongosh pour obtenir le résultat attendu.
