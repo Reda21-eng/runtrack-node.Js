@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "685411899d443c333ce7b7b1",
+    "id": 2,
+    "lastname": "Doe",
+    "firstname": "John",
+    "students_number": "12347",
+    "year_id": 1,
+    "__v": 0,
+    "year": "68541500a35cb6827421df4a"
+  },
+  {
+    "_id": "685411899d443c333ce7b7b2",
+    "id": 3,
+    "lastname": "Dupont",
+    "firstname": "Marine",
+    "students_number": "12348",
+    "year_id": 1,
+    "__v": 0,
+    "year": "68541500a35cb6827421df4b"
+  }
+]
