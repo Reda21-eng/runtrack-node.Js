@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des étudiants - LaPlateforme</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+    .container { max-width: 800px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
+    h1 { color: #2c3e50; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+    th { background: #2c3e50; color: #fff; }
+    tr:hover { background: #f1f1f1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Liste des étudiants</h1>
+    <table id="students-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Âge</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Les étudiants seront insérés ici -->
+      </tbody>
+    </table>
+  </div>
+  <script>
+    fetch('http://localhost:3000/etudiants')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.querySelector('#students-table tbody');
+        data.forEach(student => {
+          // Supporte les deux formats : { nom, prenom, age } ou { lastname, firstname, students_number, year_id, year }
+          const nom = student.nom || student.lastname || '';
+          const prenom = student.prenom || student.firstname || '';
+          const age = student.age || student.students_number || '';
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${nom}</td><td>${prenom}</td><td>${age}</td>`;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        document.querySelector('.container').innerHTML += '<p style="color:red">Erreur lors du chargement des étudiants.</p>';
+      });
+  </script>
+</body>
+</html>
